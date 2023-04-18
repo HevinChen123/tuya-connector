@@ -26,5 +26,9 @@
             <groupId>com.tuya</groupId>
             <artifactId>tuya-messaging</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.tuya</groupId>
+            <artifactId>tuya-api</artifactId>
+        </dependency>
     </dependencies>
 </project>

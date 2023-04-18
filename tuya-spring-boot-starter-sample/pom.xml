@@ -41,6 +41,30 @@
             <artifactId>tuya-spring-boot-starter</artifactId>
             <version>${tuya-spring-boot-starter.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.tuya</groupId>
+            <artifactId>tuya-ability</artifactId>
+            <version>1.1.5</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.tuya</groupId>
+            <artifactId>tuya-ability</artifactId>
+            <version>1.1.5</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.tuya</groupId>
+            <artifactId>tuya-ability</artifactId>
+            <version>1.1.5</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.tuya</groupId>
+            <artifactId>tuya-ability</artifactId>
+            <version>1.1.5</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
