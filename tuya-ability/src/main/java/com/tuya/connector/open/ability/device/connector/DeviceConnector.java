@@ -243,12 +243,14 @@ public interface DeviceConnector {
      * 以小时为单位，返回设备近 7 天的统计数据。
      * 时间，精确到小时，格式：yyyyMMddHH，结束大于开始
      * stat_type 统计类型默认为 sum，可选填 count 和 avg
+     * 注意，开始小时和结束小时不允许跨天，只能一天，并且开始必须是00，结束必须是23，否则报错 1109 参数非法
+     * 一次只能拿到七天内的，某一天的24小时的，电量数据。如果今天还没有结束，那么后续的小时，电量都是填充0
      */
-    @GET("/v1.0/devices/{dev_id}/statistics/hours")
-    Object dataHour(@Path("dev_id") String devId,
+    @GET("/v1.0/devices/{device_id}/statistics/hours")
+    Object dataHour(@Path("device_id") String devId,
                       @Query("code") String code,
-                      @Query("start_minute") String startHour,
-                      @Query("end_minute") String endHour,
+                      @Query("start_hour") String startHour,
+                      @Query("end_hour") String endHour,
                       @Query("stat_type") String statType);
 
     /**

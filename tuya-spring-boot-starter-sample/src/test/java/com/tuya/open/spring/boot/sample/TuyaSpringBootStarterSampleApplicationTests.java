@@ -33,6 +33,7 @@ class TuyaSpringBootStarterSampleApplicationTests {
     @Autowired
     private Environment environment;
 
+    //Test类这里使用了message，并且用的是启动类主类的class，因此需要使用这个测试类，就需要在项目启动类，需要开启注解@EnableMessaging
     @Autowired
     private MessageProperties messageProperties;
 
@@ -160,8 +161,8 @@ class TuyaSpringBootStarterSampleApplicationTests {
         // 按小时统计
         String deviceId = "6c13084e0437d1aece3lhn";
         String code = "add_ele";
-        String startHour = "2023041701";
-        String endHour = "2023041816";
+        String startHour = "2023041700";
+        String endHour = "2023041723";
         String statType = "sum";
         Object hourData = deviceService.dataHour(deviceId, code, startHour, endHour, statType);
         System.out.println("按小时统计");
