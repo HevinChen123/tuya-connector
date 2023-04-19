@@ -96,6 +96,7 @@ class TuyaSpringBootStarterSampleApplicationTests {
         String deviceId = "6c13084e0437d1aece3lhn";
         String deviceIds = "6c13084e0437d1aece3lhn,6cbe71eed388c4e50dgnf4,6c93af6a5489e900acqghk";
         String deviceIdsEU = "bf109a9c840211e278vyws,bffad4b5bb317c8c5bijii";
+        String deviceIdUS = "22057624c4dd57043433";
         //System.out.println(deviceService.getById("6c13084e0437d1aece3lhn"));
         String energyType = "electricity";
         String energyAction = "consume";
