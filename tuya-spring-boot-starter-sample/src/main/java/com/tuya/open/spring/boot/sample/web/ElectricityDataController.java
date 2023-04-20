@@ -104,5 +104,46 @@ public class ElectricityDataController {
         return JSON.toJSONString(hourData);
     }
 
+    /**
+     * 获取历史累计值
+     * 功能点 Code，根据产品而定（必填）。
+     */
+    @RequestMapping(value = "history", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+    public String historyStatistic(@RequestParam String deviceId) {
+        Object historyData;
+        String code = "add_ele";
+        String statType = "sum";
+        try {
+            historyData = deviceService.historyStatistic(deviceId, code);
+        } catch (Exception e) {
+            // 如果出错，则根据tuya结果，构造空对象
+            JSONObject res = new JSONObject();
+            res.put("code", "400");
+            res.put("total", "");
+            res.put("msg", e.getMessage());
+            return res.toJSONString();
+        }
+        return JSON.toJSONString(historyData);
+    }
+
+    /**
+     * 获取设备当前支持的统计类型。
+     * 对应历史累计值的，功能点 Code
+     * 默认获取全部支持的功能点
+     */
+    @RequestMapping(value = "supportFunctionCode", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+    public String allStatisticType(@RequestParam String deviceId) {
+        Object codeData;
+        try {
+            codeData = deviceService.allStatisticType(deviceId);
+        } catch (Exception e) {
+            // 如果出错，则根据tuya结果，构造空对象
+            JSONObject res = new JSONObject();
+            res.put("code", "400");
+            res.put("msg", e.getMessage());
+            return res.toJSONString();
+        }
+        return JSON.toJSONString(codeData);
+    }
 
 }
