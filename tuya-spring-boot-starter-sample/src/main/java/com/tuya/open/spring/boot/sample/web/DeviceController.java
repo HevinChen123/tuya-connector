@@ -1,6 +1,7 @@
 package com.tuya.open.spring.boot.sample.web;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.tuya.connector.open.ability.device.model.request.DeviceCommandRequest;
 import com.tuya.connector.open.ability.device.model.request.DeviceModifyRequest;
@@ -84,5 +85,119 @@ public class DeviceController {
             return res.toJSONString();
         }
         return JSON.toJSONString(devicesData);
+    }
+
+    /**
+     * 获取指令集（按品类）
+     * 按品类来查询指令集，该指令集为涂鸦公版品类下最丰富的指令集，可供开发者参考使用。如果是平台类开发者，建议可按照此类进行开发对接。
+     * category，字符串，类别名，例如：kg、cz、dj
+     */
+    @RequestMapping(value = "/functionCategory", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+    public String functionCategory(@RequestParam String category) {
+        Object functionCategoryData;
+        try {
+            functionCategoryData = deviceService.functionCategory(category);
+        } catch (Exception e) {
+            JSONObject res = new JSONObject();
+            res.put("code", "400");
+            res.put("msg", e.getMessage());
+            return res.toJSONString();
+        }
+        return JSON.toJSONString(functionCategoryData);
+    }
+
+    /**
+     * 根据设备 ID 获取指令集（按设备）
+     * 查询设备支持的功能，获取到的指令可用于下发控制。
+     */
+    @RequestMapping(value = "/functionDevice", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+    public String functionDevice(@RequestParam String deviceId) {
+        Object functionDeviceData;
+        try {
+            functionDeviceData = deviceService.functionDevice(deviceId);
+        } catch (Exception e) {
+            JSONObject res = new JSONObject();
+            res.put("code", "400");
+            res.put("msg", e.getMessage());
+            return res.toJSONString();
+        }
+        return JSON.toJSONString(functionDeviceData);
+    }
+
+    /**
+     * 根据设备 ID 批量获取指令集（按设备）
+     * 批量获取（多个）设备列表支持的指令集合，设备ID列表，多个ID逗号分隔，最多支持20个设备
+     */
+    @RequestMapping(value = "/functionDeviceBatch", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+    public String functionDeviceBatch(@RequestParam String deviceIds) {
+        Object functionDeviceData;
+        try {
+            functionDeviceData = deviceService.functionDeviceBatch(deviceIds);
+        } catch (Exception e) {
+            JSONObject res = new JSONObject();
+            res.put("code", "400");
+            res.put("msg", e.getMessage());
+            return res.toJSONString();
+        }
+        return JSON.toJSONString(functionDeviceData);
+    }
+
+    /**
+     * 根据设备 ID 获取设备规格属性（包含指令集、状态集）
+     */
+    @RequestMapping(value = "/specificationsHome", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+    public String specifications(@RequestParam String deviceId) {
+        Object specificationsData;
+        try {
+            specificationsData = deviceService.specifications(deviceId);
+        } catch (Exception e) {
+            JSONObject res = new JSONObject();
+            res.put("code", "400");
+            res.put("msg", e.getMessage());
+            return res.toJSONString();
+        }
+        return JSON.toJSONString(specificationsData);
+    }
+
+    /**
+     * 请求涂鸦接口，给设备（根据设备id）发送控制命令
+     * 命令 commands 是json对象数组
+     * 数组元素是，对象，结构
+     * 根据获取到的指令集，可按一组或多组指令集进行下发，是否同时支持多指令同时执行依具体产品而定。
+     * 可以参考上面官方提供的commandDevice方法
+     */
+    @RequestMapping(value = "/sendCommandControlDevice", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    public String sendCommandControlDevice(@RequestBody JSONObject param) {
+        Object sendCommandData;
+        try {
+            String deviceId = param.getString("deviceId");
+            JSONArray commands = param.getJSONArray("commands");
+            JSONObject commandsObject = new JSONObject();
+            commandsObject.put("commands", commands);
+            sendCommandData = deviceService.sendCommandControlDevice(deviceId, commandsObject);
+        } catch (Exception e) {
+            JSONObject res = new JSONObject();
+            res.put("code", "400");
+            res.put("msg", e.getMessage());
+            return res.toJSONString();
+        }
+        return JSON.toJSONString(sendCommandData);
+    }
+
+    /**
+     * 根据设备 ID 来查询设备最新状态
+     */
+    @RequestMapping(value = "/deviceStatus", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+    public String deviceStatus(@RequestParam String deviceId) {
+        Object statusData;
+        try {
+            statusData = deviceService.deviceStatus(deviceId);
+        } catch (Exception e) {
+            JSONObject res = new JSONObject();
+            res.put("code", "400");
+            res.put("msg", e.getMessage());
+            return res.toJSONString();
+        }
+        return JSON.toJSONString(statusData);
     }
 }

@@ -1,5 +1,6 @@
 package com.tuya.open.spring.boot.sample.service;
 
+import com.tuya.connector.api.annotations.Body;
 import com.tuya.connector.api.annotations.Path;
 import com.tuya.connector.api.annotations.Query;
 import com.tuya.connector.open.ability.device.connector.DeviceConnector;
@@ -57,6 +58,7 @@ public class DeviceService {
         return connector.statisticsSumTwo(energyAction, statisticsType, startTime, endTime, containChilds, deviceIds);
     }
 
+    //-----设备管理
     public Object devices(String deviceIds, int pageNo, int pageSize) {
         return connector.devices(deviceIds, pageNo, pageSize);
     }
@@ -68,7 +70,9 @@ public class DeviceService {
     public Object devicesOfUser(String uid, String from) {
         return connector.devicesOfUser(uid, from);
     }
+    //-----设备管理
 
+    //-----设备数据
     public Object historyStatistic(String deviceId, String code) {
         return connector.historyStatistic(deviceId, code);
     }
@@ -96,4 +100,33 @@ public class DeviceService {
     public Object dataMonth(String deviceId, String code, String startMonth, String endMonth) {
         return connector.dataMonth(deviceId, code, startMonth, endMonth);
     }
+    //-----设备数据
+
+    //-----控制设备
+    public Object functionCategory(String category) {
+        return connector.functionCategory(category);
+    }
+
+    public Object functionDevice(String deviceId) {
+        return connector.functionDevice(deviceId);
+    }
+
+    public Object functionDeviceBatch(String deviceIds) {
+        return connector.functionDeviceBatch(deviceIds);
+    }
+
+    public Object specifications(String deviceId) {
+        return connector.specifications(deviceId);
+    }
+
+    public Object sendCommandControlDevice(String deviceId, Object commands) {
+        return connector.sendCommandControlDevice(deviceId, commands);
+    }
+
+    public Object deviceStatus(String deviceId) {
+        return connector.deviceStatus(deviceId);
+    }
+
+    //-----控制设备
+
 }
